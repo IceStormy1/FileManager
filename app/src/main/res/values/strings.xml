@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FileManager</string>
+    <string name="storageButtonText">Перейти к хранилищу</string>
+    <string name="notFoundFilesText">Пусто :(</string>
+</resources>
