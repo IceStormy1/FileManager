@@ -1,5 +1,6 @@
 package com.example.filemanager;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>{
     private static final String DeleteMenuText = "Удалить";
     private static final String MoveMenuText = "Переместить";
     private static final String RenameMenuText = "Переименовать";
+    private static final int REQUEST_CODE_RENAME = 1;
 
     FileListActivity  _context;
     File[] filesAndFolders;
@@ -113,8 +115,11 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>{
             }
             if(item.getTitle().equals(RenameMenuText))
             {
-                Toast.makeText(_context.getApplicationContext(),"Переименовано ",Toast.LENGTH_SHORT).show();
-
+                Intent intentRename = new Intent(_context, RenameFileActivity.class);
+                intentRename.putExtra("file", selectedFile);
+                _context.startActivity(intentRename);
+                notifyItemChanged(position);
+                _context.updateStorageFiles();
             }
 
             return true;
@@ -135,9 +140,9 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>{
                         selectedFile.delete();
                         Toast.makeText(_context.getApplicationContext(),String.format("Файл %s удален", selectedFile.getName()),Toast.LENGTH_SHORT).show();
                         //v.setVisibility(View.GONE);
-                        _context.updateStorageFiles();
                         //onBindViewHolder(holder, );
                         notifyItemRemoved(position);
+                        _context.updateStorageFiles();
                     }
                 })
                 .setNegativeButton("Нет", null)
