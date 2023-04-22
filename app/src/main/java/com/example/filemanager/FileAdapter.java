@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +124,11 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>{
 
     private boolean MoveFile(File selectedFile, int position){
         Intent intentRename = new Intent(_context, FileListActivity.class);
+        String path = Environment.getExternalStorageDirectory().getPath();
+
         intentRename.putExtra("file", selectedFile);
+        intentRename.putExtra("path", path);
+
         _context.startActivity(intentRename);
         notifyItemChanged(position);
         _context.updateStorageFiles();

@@ -55,7 +55,8 @@ public class FileListActivity extends AppCompatActivity
 
             btnStorage.setOnClickListener(v -> {
                 File directory = getFilesDir();
-                file.renameTo(new File(directory, file.getName()));
+                String fileName = file.getName().substring(file.getName().lastIndexOf("/") + 1);
+                file.renameTo(new File(directory, fileName));
 
                 finish();
             });
