@@ -6,4 +6,5 @@
     <string name="rename">Переименовать</string>
     <string name="enterFileName">Введите название</string>
     <string name="renameFile">Переименовать файл</string>
+    <string name="moveFileText">Переместить сюда</string>
 </resources>

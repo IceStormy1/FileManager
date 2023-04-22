@@ -106,26 +106,39 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder>{
 
         popupMenu.setOnMenuItemClickListener(item -> {
             if(item.getTitle().equals(DeleteMenuText))
-            {
                 return DeleteFile(selectedFile, position);
-            }
+
             if(item.getTitle().equals(MoveMenuText))
-            {
-                Toast.makeText(_context.getApplicationContext(),"Перемещено ",Toast.LENGTH_SHORT).show();
-            }
+                return MoveFile(selectedFile, position);
+
             if(item.getTitle().equals(RenameMenuText))
-            {
-                Intent intentRename = new Intent(_context, RenameFileActivity.class);
-                intentRename.putExtra("file", selectedFile);
-                _context.startActivity(intentRename);
-                notifyItemChanged(position);
-                _context.updateStorageFiles();
-            }
+                return RenameFile(selectedFile, position);
 
             return true;
         });
 
         popupMenu.show();
+        return true;
+    }
+
+    private boolean MoveFile(File selectedFile, int position){
+        Intent intentRename = new Intent(_context, FileListActivity.class);
+        intentRename.putExtra("file", selectedFile);
+        _context.startActivity(intentRename);
+        notifyItemChanged(position);
+        _context.updateStorageFiles();
+
+
+        return true;
+    }
+
+    private boolean RenameFile(File selectedFile, int position){
+        Intent intentRename = new Intent(_context, RenameFileActivity.class);
+        intentRename.putExtra("file", selectedFile);
+        _context.startActivity(intentRename);
+        notifyItemChanged(position);
+        _context.updateStorageFiles();
+
         return true;
     }
 

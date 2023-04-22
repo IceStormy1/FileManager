@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -43,6 +46,20 @@ public class FileListActivity extends AppCompatActivity
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new FileAdapter(FileListActivity.this, files));
+
+        File file = (File) getIntent().getSerializableExtra("file");
+
+        if(file != null){
+            Button btnStorage = findViewById(R.id.buttonMove);
+            btnStorage.setVisibility(Button.VISIBLE);
+
+            btnStorage.setOnClickListener(v -> {
+                File directory = getFilesDir();
+                file.renameTo(new File(directory, file.getName()));
+
+                finish();
+            });
+        }
     }
 
     private void setStorageFiles(){
